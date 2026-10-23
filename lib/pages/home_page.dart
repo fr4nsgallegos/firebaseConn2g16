@@ -46,6 +46,76 @@ class HomePage extends StatelessWidget {
               },
               child: Text("Get data"),
             ),
+
+            ElevatedButton(
+              onPressed: () async {
+                userReference
+                    .where("age", isLessThan: 26)
+                    .where("gender", isEqualTo: "F")
+                    .get()
+                    .then((value) {
+                      List<QueryDocumentSnapshot> docs = value.docs;
+                      List<UserModel> userModelList = docs.map((e) {
+                        return UserModel.fromMap(
+                          e.data() as Map<String, dynamic>,
+                        );
+                      }).toList();
+
+                      userModelList.forEach((usuario) {
+                        print("**********************************");
+                        print(usuario.name);
+                        print(usuario.email);
+                        print(usuario.age);
+                        print(usuario.gender);
+                        print(usuario.createdAt);
+                      });
+                    });
+              },
+              child: Text("Obtener data filtrada"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Agregar usuario desde map
+                // userReference
+                //     .add({
+                //       "name": "Lucas",
+                //       "email": "mlus@gmaiolñ.com",
+                //       "gender": "M",
+                //       "age": 80,
+                //       "createdAt": Timestamp.now(),
+                //     })
+                //     .then((value) {
+                //       print("Usuario agregado correctamnte");
+                //       print(value);
+                //       print(value.id);
+                //     })
+                //     .catchError((error) {
+                //       print("Error al agregar el usuario: $error");
+                //     });
+
+                // Agregar usuarios desde un modelo
+                UserModel newUser = UserModel(
+                  name: "mARIA",
+                  email: "cMARITA@gmail.com",
+                  age: 18,
+                  gender: "F",
+                  createdAt: DateTime.now(),
+                );
+
+                userReference
+                    .add(newUser.toMap())
+                    .then((value) {
+                      print("Usuario agregado correctamnte");
+                      print(value);
+                      print(value.id);
+                    })
+                    .catchError((error) {
+                      print("Error al agregar el usuario: $error");
+                    });
+                ;
+              },
+              child: Text("Agregar un usuario"),
+            ),
           ],
         ),
       ),
