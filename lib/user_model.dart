@@ -41,4 +41,17 @@ class UserModel {
       createdAt: timeFiretore.toDate(),
     );
   }
+
+  factory UserModel.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    final data = doc.data()!;
+    String id = doc.id;
+
+    return UserModel(
+      name: (data["name"] ?? "") as String,
+      email: (data["email"] ?? "") as String,
+      age: (data["age"] ?? "") as int,
+      gender: (data["gender"] ?? "") as String,
+      createdAt: (data["createdAt"] as Timestamp?)?.toDate() ?? DateTime.now(),
+    );
+  }
 }
