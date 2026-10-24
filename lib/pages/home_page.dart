@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseconn2g16/pages/future_list_page.dart';
 import 'package:firebaseconn2g16/pages/streams/stream_page.dart';
 import 'package:firebaseconn2g16/user_model.dart';
 import 'package:flutter/material.dart';
@@ -190,6 +191,15 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: Text("Stream Page"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FutureListPage()),
+                );
+              },
+              child: Text("Future list  Page"),
             ),
           ],
         ),
