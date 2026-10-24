@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseconn2g16/pages/streams/multiple_stream_controller_page.dart';
 import 'package:firebaseconn2g16/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -101,6 +102,7 @@ class StreamPage extends StatelessWidget {
 
             // TRABAJANDO CON STREAMS Y FIRESTORE
             Expanded(
+              flex: 3,
               child: StreamBuilder(
                 // primera forma - De esta forma se tra la info en forma de map, hay que hacer from map apra tratarla como modelo
                 // stream: userReference.snapshots(),
@@ -158,6 +160,24 @@ class StreamPage extends StatelessWidget {
                     );
                   }
                 },
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MultipleStreamControllerPage(),
+                        ),
+                      );
+                    },
+                    child: Text("Multiples streams"),
+                  ),
+                ],
               ),
             ),
           ],
