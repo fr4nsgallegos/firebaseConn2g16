@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebaseconn2g16/pages/stream_page.dart';
 import 'package:firebaseconn2g16/user_model.dart';
 import 'package:flutter/material.dart';
 
@@ -180,6 +181,15 @@ class HomePage extends StatelessWidget {
                     });
               },
               child: Text("Eliminar un usuario"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => StreamPage()),
+                );
+              },
+              child: Text("Stream Page"),
             ),
           ],
         ),
