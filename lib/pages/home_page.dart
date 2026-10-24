@@ -116,6 +116,71 @@ class HomePage extends StatelessWidget {
               },
               child: Text("Agregar un usuario"),
             ),
+
+            ElevatedButton(
+              onPressed: () {
+                UserModel newUser = UserModel(
+                  name: "MELISA",
+                  email: "lLOSA",
+                  age: 23,
+                  gender: "F",
+                  createdAt: DateTime.now(),
+                );
+                userReference
+                    .doc("uid0000010")
+                    .set(newUser.toMap())
+                    .then((value) {
+                      print("Ususuario agregado con el id específico");
+                    })
+                    .catchError((error) {
+                      print(error);
+                    });
+              },
+              child: Text("Agregar usuario co id en específico"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                userReference
+                    .doc("uid0000010")
+                    .update({"email": "peruananito@gmail.com"})
+                    .then((value) {
+                      print("Actualizacion de usuario realizada");
+                    })
+                    .catchError((error) {
+                      print("Error al agrea usuario $error");
+                    });
+              },
+              child: Text("Actualizar usuario"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                userReference
+                    .doc("uid0000010")
+                    .set({"email": "peruananito@gmail.com"})
+                    .then((value) {
+                      print("Actualizacion de usuario realizada");
+                    })
+                    .catchError((error) {
+                      print("Error al agrea usuario $error");
+                    });
+              },
+              child: Text("Actualizar usuario chancando info"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                userReference
+                    .doc("uid0000010")
+                    .delete()
+                    .then((value) {
+                      print("Elminación de usuario realizada");
+                    })
+                    .catchError((error) {
+                      print("Error al eliminar usuario $error");
+                    });
+              },
+              child: Text("Eliminar un usuario"),
+            ),
           ],
         ),
       ),
