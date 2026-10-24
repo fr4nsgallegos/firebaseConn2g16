@@ -47,6 +47,7 @@ class UserModel {
     String id = doc.id;
 
     return UserModel(
+      id: id,
       name: (data["name"] ?? "") as String,
       email: (data["email"] ?? "") as String,
       age: (data["age"] ?? "") as int,

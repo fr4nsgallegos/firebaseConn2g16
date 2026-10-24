@@ -47,6 +47,18 @@ class StreamPage extends StatelessWidget {
     await userRefTipada.add(user);
   }
 
+  Stream<QuerySnapshot<UserModel>> watchUsers() {
+    return userRefTipada.orderBy("createdAt", descending: true).snapshots();
+  }
+
+  Future<void> updateUser(String docId) async {
+    await userRefTipada.doc(docId).update({"name": "Nombre actualizado"});
+  }
+
+  Future<void> deleteUser(String docId) async {
+    await userRefTipada.doc(docId).delete();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +102,11 @@ class StreamPage extends StatelessWidget {
             // TRABAJANDO CON STREAMS Y FIRESTORE
             Expanded(
               child: StreamBuilder(
-                stream: userReference.snapshots(),
+                // primera forma - De esta forma se tra la info en forma de map, hay que hacer from map apra tratarla como modelo
+                // stream: userReference.snapshots(),
+
+                //Segunda forma - De esta forma se tra la info como userModel, ya no hay que tranformarla
+                stream: watchUsers(),
                 builder: (context, snapshot) {
                   final List docs = snapshot.data?.docs ?? [];
                   if (snapshot.hasError) {
@@ -106,8 +122,11 @@ class StreamPage extends StatelessWidget {
                     return ListView.builder(
                       itemCount: userList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        // Trasnformamos la infor porque se tra en forma de map
-                        final UserModel u = UserModel.fromMap(userList[index]);
+                        // primera forma - Trasnformamos la infor porque se tra en forma de map
+                        // final UserModel u = UserModel.fromMap(userList[index]);
+
+                        // Segunda forma - se trabaja directamente con userModel
+                        final UserModel u = userList[index];
 
                         return Card(
                           child: ListTile(
@@ -115,6 +134,23 @@ class StreamPage extends StatelessWidget {
                             title: Text(u.name),
                             subtitle: Text(
                               "${u.email} / ${u.createdAt.toString().substring(0, 11)}",
+                            ),
+                            trailing: Row(
+                              mainAxisSize: .min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    updateUser(u.id!);
+                                  },
+                                  icon: Icon(Icons.edit),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    deleteUser(u.id!);
+                                  },
+                                  icon: Icon(Icons.delete),
+                                ),
+                              ],
                             ),
                           ),
                         );
