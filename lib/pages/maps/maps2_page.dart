@@ -1,7 +1,5 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
-
 import 'package:custom_info_window/custom_info_window.dart';
-import 'package:firebaseconn2g16/utils/home_conroller.dart';
+import 'package:firebaseconn2g16/utils/home_controller.dart';
 import 'package:firebaseconn2g16/utils/place_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,7 +16,7 @@ class _Maps2PageState extends State<Maps2Page> {
 
   CustomInfoWindowController _customInfoWindowController =
       CustomInfoWindowController();
-  final _mapController = HomeConroller();
+  final _mapController = HomeController();
 
   Future<void> loadPlaces() async {
     Set<Marker> auxMarkers = {};
@@ -57,6 +55,20 @@ class _Maps2PageState extends State<Maps2Page> {
                         fit: BoxFit.cover,
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsGeometry.all(8),
+                      child: Column(
+                        crossAxisAlignment: .start,
+                        children: [
+                          Text(
+                            lugar.name,
+                            style: TextStyle(fontSize: 16, fontWeight: .bold),
+                          ),
+                          SizedBox(height: 4),
+                          Text(lugar.services, style: TextStyle(fontSize: 12)),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -93,13 +105,20 @@ class _Maps2PageState extends State<Maps2Page> {
               target: LatLng(-12.05602263091387, -76.93596240179183),
               zoom: 17,
             ),
+
+            onTap: (argument) {
+              _customInfoWindowController.hideInfoWindow!();
+            },
+            onCameraMove: (position) {
+              _customInfoWindowController.onCameraMove!();
+            },
             markers: markers,
           ),
           CustomInfoWindow(
             controller: _customInfoWindowController,
             height: 200,
             width: 250,
-            offset: 250,
+            offset: 60,
           ),
         ],
       ),
