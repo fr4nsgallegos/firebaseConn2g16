@@ -12,7 +12,12 @@
           "package_name": "com.g16.firebaseconggg16"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "450176826-dl3ljks8g8ro51q2iihutbneq5q3bubl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDda5u-biZ0HRrBsWpFibFhei1BW4v2gG8"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450176826-dl3ljks8g8ro51q2iihutbneq5q3bubl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450176826-t3e2r9nsvipvh9eutqbvf5m03i37rq7q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.g16.firebaseconn2g16"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +48,20 @@
           "package_name": "com.g16.firebaseconn2g16"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "450176826-ael16fvh7v80fdtg321ngnnrg3v8onpp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.g16.firebaseconn2g16",
+            "certificate_hash": "22866c16aa8d69cb7083aa0900578c7fe277bc38"
+          }
+        },
+        {
+          "client_id": "450176826-dl3ljks8g8ro51q2iihutbneq5q3bubl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDda5u-biZ0HRrBsWpFibFhei1BW4v2gG8"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450176826-dl3ljks8g8ro51q2iihutbneq5q3bubl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "450176826-t3e2r9nsvipvh9eutqbvf5m03i37rq7q.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.g16.firebaseconn2g16"
+              }
+            }
+          ]
         }
       }
     }
