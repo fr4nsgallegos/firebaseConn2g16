@@ -10,6 +10,33 @@ class Maps1Page extends StatefulWidget {
 class _Maps1PageState extends State<Maps1Page> {
   Position? currentPos;
   Marker? myPosMarker;
+  BitmapDescriptor? customMarker;
+
+  Set<Marker> markers = {
+    Marker(
+      markerId: MarkerId("MARC1"),
+      position: LatLng(-12.025770870405688, -76.98708066190207),
+    ),
+  };
+
+  Future<void> setCustomMarker() async {
+    customMarker = await BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(48, 48)),
+      "assets/markers/orange.png",
+    );
+
+    markers.add(
+      Marker(
+        markerId: MarkerId(markers.length.toString()),
+        position: LatLng(currentPos!.latitude, currentPos!.longitude),
+        icon: customMarker!,
+        infoWindow: InfoWindow(
+          title: "Mi posición actual",
+          snippet: "Ubicación en tiempo real",
+        ),
+      ),
+    );
+  }
 
   Future<void> getPosition() async {
     bool serviceEnabled;
@@ -35,10 +62,13 @@ class _Maps1PageState extends State<Maps1Page> {
     try {
       Position position = await Geolocator.getCurrentPosition();
       currentPos = position;
-      myPosMarker = Marker(
-        markerId: MarkerId("Mypos"),
-        position: LatLng(currentPos!.latitude, currentPos!.longitude),
-      );
+      // myPosMarker = Marker(
+      //   markerId: MarkerId("Mypos"),
+      //   position: LatLng(currentPos!.latitude, currentPos!.longitude),
+      // );
+      // markers.add(myPosMarker!);
+
+      setCustomMarker();
       setState(() {});
     } catch (e) {
       print("ERROR: $e");
@@ -58,10 +88,19 @@ class _Maps1PageState extends State<Maps1Page> {
       body: currentPos == null
           ? Center(child: CircularProgressIndicator())
           : GoogleMap(
-              markers: {myPosMarker!},
+              onTap: (argument) {
+                Marker newMarker = Marker(
+                  markerId: MarkerId(markers.length.toString()),
+                  position: argument,
+                );
+                markers.add(newMarker);
+                setState(() {});
+              },
+              markers: markers,
+              // markers: {myPosMarker!},
               initialCameraPosition: CameraPosition(
                 target: LatLng(currentPos!.latitude, currentPos!.longitude),
-                zoom: 15,
+                zoom: 17,
               ),
             ),
     );
